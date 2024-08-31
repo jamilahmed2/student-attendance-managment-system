@@ -1,14 +1,15 @@
 #include <iostream>
 #include <string>
+#include <fstream> // Include this to use file handling
 using namespace std;
 
 int main() {
     string stdName[10];
     string AttStatus[10];
     int totalPresent = 0;
-    int totalStd = 10;
+    int totalStd = 0;
     int totalAbsent = 0;
-
+    char choice;
 
     // Open a file to store the data
     ofstream outFile("StudentAttendance.txt", ios::app); // Open in append mode
@@ -18,46 +19,50 @@ int main() {
         return 1;
     }
 
-
-    for (int i = 0; i < 10; i++) {
-
+    do {
         // Taking/input Student name
-        cout << i << " Enter Student Name: ";
-        cin >> stdName[i];
+        cout << totalStd << " Enter Student Name: ";
+        cin >> stdName[totalStd];
 
-        // Taking/ipnut attendance status 
+        // Taking/input attendance status
         cout << "Enter Student Status (p or P for Present, A for Absent): ";
-        cin >> AttStatus[i];
+        cin >> AttStatus[totalStd];
 
-        if (AttStatus[i] == "p" || AttStatus[i] == "P") {
+        if (AttStatus[totalStd] == "p" || AttStatus[totalStd] == "P") {
             totalPresent++;
         }
 
         // Write the data to the file
-        outFile << "Student Name: " << stdName[i] << ", Status: " << AttStatus[i] << endl;
-    
-    }
+        outFile << "Student Name: " << stdName[totalStd] << ", Status: " << AttStatus[totalStd] << endl;
+
+        totalStd++;
+
+        // Ask if the user wants to add more students or finish
+        cout << "Do you want to add more student details? (y/n): ";
+        cin >> choice;
+
+    } while ((choice == 'y' || choice == 'Y') && totalStd < 10);
 
     totalAbsent = totalStd - totalPresent;
 
-    // out put in terminal
+    // Output in terminal
     cout << "Total Present: " << totalPresent << endl;
     cout << "Total Absent: " << totalAbsent << endl;
     cout << "Total Students: " << totalStd << endl;
 
-    // stored attendance in StudentAttendance.txt
+    // Store attendance summary in StudentAttendance.txt
     outFile << "Total Present: " << totalPresent << endl;
     outFile << "Total Absent: " << totalAbsent << endl;
     outFile << "Total Students: " << totalStd << endl;
     outFile << "-----------------------------------" << endl;
- 
+
     // Close the file
     outFile.close();
 
-    // Pause the program before exiting 
+    // Pause the program before exiting
     cout << "Press any key or enter key to exit...";
-    cin.ignore(); 
-    cin.get();    
+    cin.ignore();
+    cin.get();
 
     return 0;
 }

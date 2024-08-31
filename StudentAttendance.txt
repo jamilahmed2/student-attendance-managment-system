@@ -1,0 +1,7 @@
+Student Name: jamil, Status: p
+Student Name: ahmed, Status: a
+Student Name: ali, Status: a
+Total Present: 1
+Total Absent: 2
+Total Students: 3
+-----------------------------------
